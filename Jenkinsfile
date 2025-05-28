@@ -1,10 +1,16 @@
 pipeline {
     agent any
 
+    environment {
+        REPO_URL = 'https://github.com/AdminVelesium/TMS.git'
+        BRANCH = 'main'
+        BUILD_DIR = 'dist'
+    }
+
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/AdminVelesium/TMS.git'
+                git branch: "${BRANCH}", url: "${REPO_URL}"
             }
         }
 
