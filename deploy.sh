@@ -1,10 +1,19 @@
 #!/bin/bash
 
-# Clean old build
-sudo rm -rf /var/www/tms/*
+# Fail if any command fails
+set -e
 
-# Copy new build
-sudo cp -r dist/* /var/www/tms/
+# Define source and destination
+SOURCE_DIR=dist
+DEST_DIR=/var/www/html
 
-# Set permissions
-sudo chown -R www-data:www-data /var/www/tms
+echo "Cleaning previous build from $DEST_DIR"
+sudo rm -rf $DEST_DIR/*
+
+echo "Copying new build to $DEST_DIR"
+sudo cp -r $SOURCE_DIR/* $DEST_DIR/
+
+echo "Restarting nginx"
+sudo systemctl restart nginx
+
+echo "Deployment complete. App should be live!"
