@@ -1,14 +1,10 @@
 #!/bin/bash
 
-set -e
+# Ensure app directory exists
+mkdir -p /var/www/tms
 
-echo "Cleaning old build..."
-sudo rm -rf /var/www/html/*
+# Copy new build files
+cp -r ~/app/dist/* /var/www/tms/
 
-echo "Copying new build..."
-sudo cp -r ~/app/* /var/www/html/
-
-echo "Restarting Nginx..."
-sudo systemctl restart nginx
-
-echo "🚀 Deployed successfully"
+# Optional: restart Nginx or similar
+# sudo systemctl restart nginx
