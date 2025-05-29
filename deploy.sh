@@ -11,4 +11,4 @@ sudo cp -r ~/app/* /var/www/html/
 echo "Restarting Nginx..."
 sudo systemctl restart nginx
 
-echo "🚀 Deployed successfully"
+echo "🚀 Deployed successfully" 
