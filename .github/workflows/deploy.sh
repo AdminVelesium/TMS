@@ -1,25 +1,28 @@
 #!/bin/bash
 
-set -e  # Exit on any error
+# Exit immediately if a command exits with a non-zero status
+set -e
 
-# Log start time
-echo "Deploy script started at $(date)"
+echo "🔄 Starting deployment..."
 
-# Ensure the target directory exists
-sudo mkdir -p /var/www/tms
+# Define paths
+APP_SRC="/home/ubuntu/app"
+DEPLOY_DIR="/var/www/html"
 
-# Clear old build files (optional, but avoids stale files)
-sudo rm -rf /var/www/tms/*
+# Remove existing files in deployment dir
+echo "🧹 Cleaning old files from $DEPLOY_DIR..."
+sudo rm -rf $DEPLOY_DIR/*
 
-# Copy new build files
-sudo cp -r ~/app/* /var/www/tms/
+# Copy new build
+echo "📦 Copying new build files from $APP_SRC to $DEPLOY_DIR..."
+sudo cp -r $APP_SRC/* $DEPLOY_DIR/
 
 # Set correct permissions
-sudo chown -R www-data:www-data /var/www/tms
-sudo chmod -R 755 /var/www/tms
+echo "🔐 Setting permissions..."
+sudo chown -R www-data:www-data $DEPLOY_DIR
 
-# Optional: restart Nginx if you’re serving via Nginx
-# sudo systemctl restart nginx
+# Restart NGINX
+echo "🚀 Restarting NGINX..."
+sudo systemctl restart nginx
 
-echo "Deploy script completed at $(date)"
-
+echo "✅ Deployment complete!"
